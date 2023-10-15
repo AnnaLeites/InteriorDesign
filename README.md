@@ -37,4 +37,5 @@ labelled_bedrooms_data_sample.txt - аннотация к фотографиям
 На седьмой неделе курса: 
 - После получения обратной связи на семинаре мы заполнили Readme
 - Пересмотрели бизнес-требования в ML- design doc и план MVP решения
-- Подобрали датасет картинок комнат (часть датасета Bedrooms_labelled_sample.zip), и разметили часть спален файл labelled_bedrooms_data_sample.txt. 
+- Подобрали датасет картинок комнат (часть этого датасета загрузили в Bedrooms_labelled_sample.zip)
+- Разметили часть спален из вышеуказанного датасета (файл labelled_bedrooms_data_sample.txt). 

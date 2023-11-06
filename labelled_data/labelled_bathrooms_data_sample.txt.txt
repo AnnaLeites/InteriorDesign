@@ -1,0 +1,10 @@
+bath_5.jpg; bathroom; small; black & wood-colored washbasin; mirror; 2 white wall lamps; white toilet; white bathtub; pink bath curtains;
+bath_7.jpg; bathroom; medium; grey washbasin; mirror; glass door; wood-colored shower chair;
+bath_8.jpg; bathroom; medium; black washbasin; mirror; shelf; balck & white toilet; glass door; white bathtub; brown blinds; shower toilet;
+bath_9.jpg; bathroom; small; white toilet; painting; white bath; tower bar;
+bath_31.jpg; bathroom; small; white sink; tower bar; mirror;
+bath_34.jpg; bathroom; small; white washbasin; mirror; white toilet; white bathtub; glass door;
+bath_38.jpg; bathroom; medium; wood-colored washbasin; white & wood-colored toilet; mirror;
+bath_41.jpg; bathroom; small; white washbasin; mirror; white wall lamp;
+bath_42.jpg; bathroom; small; white toilet; painting; 2 black shelves;
+bath_47.jpg; bathroom; medium; white washbasin; white toilet; white bathtub; glass door; golden wall lamp; white blinds;

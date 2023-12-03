@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interior Design</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f0e1;
+        }
+
+        #logo {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+        }
+
+        #inputContainer {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #dynamicInput {
+            width: 330%; /* Adjust the width as needed */
+            margin-bottom: 10px;
+        }
+
+        #outputWindow {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 600px;
+            min-height: 100px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <img src="static/logo.png" alt="Your Logo" id="logo">
+
+    <div id="inputContainer">
+        <input type="text" id="dynamicInput" placeholder="Write down what you want to describe (bedroom, living room, dining room, kitchen, bathroom)">
+        <button onclick="submitInput()">Send</button>
+    </div>
+
+    <div id="outputWindow"></div>
+
+    <div style="margin-top: 10px;">
+        <button id="reloadButton" onclick="reloadApp()" disabled style="margin-top: 10px;">Reload</button>
+    </div>
+
+
+    <script>
+        let roomInputValue = '';
+        let userInputValue = '';
+    
+        function submitInput() {
+            const dynamicInput = document.getElementById('dynamicInput');
+            const outputWindow = document.getElementById('outputWindow');
+
+            if (roomInputValue === '') {
+                // First input (room_input)
+                roomInputValue = dynamicInput.value;
+                dynamicInput.placeholder = "Write a prompt for your room";
+                dynamicInput.value = '';
+            } else if (userInputValue === '') {
+                // Second input (user_input)
+                userInputValue = dynamicInput.value;
+    
+                // Make an HTTP POST request to the backend
+                fetch('http://127.0.0.1:8000/send_request', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `room_input=${roomInputValue}&user_input=${userInputValue}`,
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Check if data is null
+                    if (data === null) {
+                        displayError("Error! Room not recognized. Choose from: bedroom, living room, dining room, kitchen, bathroom");
+                        document.getElementById('reloadButton').disabled = false;
+                    } else if ('error' in data) {
+                        displayError(data.error);
+                        document.getElementById('reloadButton').disabled = false;
+                    } else {
+                        // Handle the response from the backend
+                        displayResults(data.results);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    displayError(error.message || 'An error occurred');
+                });
+    
+                // Disable the dynamic input and button
+                dynamicInput.disabled = true;
+                document.querySelector('button').disabled = true;
+            }
+        }
+
+        function displayResults(results) {
+            const outputWindow = document.getElementById('outputWindow');
+
+            // Clear existing content in outputWindow
+            outputWindow.innerHTML = '';
+
+            if (results) {
+                // Create and append elements for each result
+                results.forEach(result => {
+                const resultElement = document.createElement('div');
+                resultElement.textContent = `Similarity: ${result.Similarity}, File Name: ${result["File Name"]}`;
+                outputWindow.appendChild(resultElement);
+                });
+            } else {
+                // Handle the case where results is null or undefined
+                displayError('No results available');
+            }
+
+            document.getElementById('reloadButton').disabled = false;
+        }
+
+        function displayError(errorMessage) {
+            const outputWindow = document.getElementById('outputWindow');
+            const errorElement = document.createElement('div');
+            errorElement.textContent = errorMessage;
+            errorElement.style.color = 'red';  // Style the error message
+            outputWindow.appendChild(errorElement);
+        }
+
+        function reloadApp() {
+            // Reload the entire page
+            location.reload();
+        }
+    </script>
+</body>
+</html>

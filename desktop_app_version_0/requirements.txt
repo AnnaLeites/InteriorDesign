@@ -1,3 +1,6 @@
 spacy
 numpy
 nltk
+python-multipart
+fastapi
+uvicorn

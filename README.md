@@ -78,4 +78,4 @@ labelled_bedrooms_data_sample.txt - аннотация к фотографиям
 На четырнадцатой неделе кусра:
 - разработан back-end системы файл app.py
 - разработан front-end системы, соединён с back-end'ом
-папки desktop_app_version_0 и desktop_app_version_1
+папка desktop_app_version_0

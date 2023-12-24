@@ -52,7 +52,33 @@
 Бейзлайном данного решения является веб-сайт на котором пользователь может ввести тип комнаты (на английском языке): спальня, гостиная, обеденная зона, кухня, ванная.  
 В ответ он получает случайную комнату заданного типа.  
 ![Диаграмма бейзлайн решения задачи](https://github.com/AnnaLeites/InteriorDesign/blob/main/baseline_diagram.png)  
-шщ
+
+## 2.5.  Выбор модели для итогового решения.   
+Мы сравнили 5 моделей создания эмбеддингов на подготовленных нами данных и тестах.   
+### 2.5.1 Сравниваемые модели.
+1. В качестве первой из рассматриваемых моделей мы выбрали word2vec обученную на google news данных. Её размер  составляет около 1,6 гб.  
+2. В качестве следующей из моделей мы подумали использовать word2vec от gensim обученную только на наших данных, таким образом получалась 3. маленькая модель. Однако, эта модель имела существенный недостаток, препятствующий задуманному функционированию программы: она не может превращать в вектора слова, которые не были в исходном довольно ограниченном наборе данных.  
+3. Далее, мы рассматривали модель tok2vec “en_core_web_lg” из библиотеки spacy, которя обучена на текстах блогов, новостей и комментариев, и весит около 600 мб.  
+4. Мы попробовали также трансформерную модель all-MiniLM-L6-v2. Она удобна в использовании из-за того, что ей можно передать целый список строк для кодирования без итераций в цикле. Её вес составляет 80 мб.  
+5. Последней моделью, которую мы исследовали, была tok2vec “en_core_web_md” из библиотеки spacy, которая весит 40 мб.   
+
+
+### 2.5.2 Входные данные для тестирования моделей
+В качестве тестов используется следующий подготовленный командой набор из 10 пар: вид комнаты, запрос пользователя:
+1. "bedroom", "Large bedroom with double wood bed, two windows, dressing table, and picture.",
+2. "bedroom", "Medium-sized bedroom with light red double bed, TV stand, glass doors, and white ceiling fan.",
+3. "bedroom", "Small bedroom with black double bed, two wall lamps, and dark curtains.",
+4. "bedroom", "A cozy bedroom with a beige double bed, TV, pouf, and spacious wardrobe",
+5. "bedroom", "I want a big room",
+6. "bathroom", "Medium bathroom, black washbasin, mirror, shelf, white bathtub, glass door, and brown blinds",
+7. "dining", "Show me a medium-sized dining area with a round glass table, six white chairs, white blinds, and beige curtains",
+8. "dining", "I want to see a medium-sized dining room with a grey table, seven grey chairs, two black chandeliers, a grey flowerpot, and a white sofa",
+9. "kitchen", "Show me a medium-sized kitchen with white cabinets, a sink, a black ceiling fan, a metallic hob, a white and black refrigerator, and a brown rug",
+10. "living room", "I want to see a large living room with a beige sofa, two beige armchairs, a beige pouf, a black coffee table, a black end table, a grey rug, two black wall lamps, and two paintings"
+
+### 2.5.3 Метод сравнения моделей. 
+В каждой из сравниваемых моделей мы использовали для вычисления косинусное расстояние, также в моделях 1,2,3 и 5 мы использовали вышеуказанную метрику близости векторов.  Однако, ввиду того, что абсолютное значение косинусного расстояние между векторами в разных векторных пространствах не всегда информативно отражает качество моделей эмбеденингов, а также того, что в работающей системе важна производительность и размер итоговой модели, мы выбрали модель, учитывая в первую очередь её размер, поэтому победила модель номер 5 - “en_core_web_md” из библиотеки spacy.
+
 
 
 

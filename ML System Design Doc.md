@@ -104,7 +104,7 @@
 
 ## 3.4 Нагрузочное тестирование.  
 Проверка работы системы осуществлялась в коде бекенда замером времени от вызова кода на python до возвращения результата работы кода. Мы провели 100 запусков, и получили следующее распределение времени.
-![LoadTest](https://github.com/AnnaLeites/InteriorDesign/blob/main/LoadTest.png)  
+![LoadTest](https://github.com/AnnaLeites/InteriorDesign/blob/main/TimeTest.png)  
 Cреднее время работы составляет 23,198 секунды.
 
 ## 3.5 Масштабирование системы.   
